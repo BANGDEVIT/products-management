@@ -187,3 +187,20 @@ if (uploadImage) {
 }
 //End Upload Image
 
+// Sort
+const sort = document.querySelector("[sort]");
+
+if (sort){
+
+  let url = new URL(window.location.href);
+
+  sort.addEventListener("change",(e) =>{
+    const value = e.target.value;
+    const[sortKey,sortValue] = value.split("-");
+    url.searchParams.set('sortKey', sortKey);
+    url.searchParams.set('sortValue', sortValue);
+    window.location.href = url.href;
+  })
+}
+
+// End Sort
