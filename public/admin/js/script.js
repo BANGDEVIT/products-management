@@ -194,13 +194,38 @@ if (sort){
 
   let url = new URL(window.location.href);
 
-  sort.addEventListener("change",(e) =>{
+  const sortSelect = sort.querySelector("[sort-select]");
+  const sortClear = sort.querySelector("[sort-clear]");
+
+  // Sort
+  sortSelect.addEventListener("change",(e) =>{
     const value = e.target.value;
     const[sortKey,sortValue] = value.split("-");
     url.searchParams.set('sortKey', sortKey);
     url.searchParams.set('sortValue', sortValue);
     window.location.href = url.href;
   })
+  // End Sort
+
+  // Clear Sort
+  sortClear.addEventListener("click",(e)=>{
+    url.searchParams.delete('sortKey');
+    url.searchParams.delete('sortValue');
+    window.location.href = url.href;
+  })
+ // End clear Sort
+
+ //thêm selector cho option
+
+  const sortKey =  url.searchParams.get('sortKey');
+  const sortValue =  url.searchParams.get('sortValue');
+
+  if (sortKey && sortValue) {
+    const stringSort = `${sortKey}-${sortValue}`
+    const optionSlected = sortSelect.querySelector(`option[value='${stringSort}']`)
+    optionSlected.selected =true;
+  }
+
 }
 
 // End Sort
