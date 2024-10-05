@@ -10,6 +10,8 @@ const cookieParser = require('cookie-parser');
 
 const session = require('express-session');
 
+var path = require('path');
+
 const routeAmin = require('./routes/admin/index.route');
 const routes = require('./routes/client/index.route');
 
@@ -42,6 +44,9 @@ app.use(session({ cookie: { maxAge: 60000 }}));
 app.use(flash());
 // End flash
 
+// Use tinymce
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+// End tinymce
 
 // Route
 routes(app);
