@@ -28,4 +28,5 @@ route.patch('/edit/:id',upload.single('thumbnail'),validate.createPost,controlle
 route.get('/detail/:id',controller.detail);
 
 
+
 module.exports = route;
