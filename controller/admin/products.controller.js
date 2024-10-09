@@ -215,10 +215,18 @@ module.exports.edit = async(req,res) =>{
     }
   
     const product = await Products.findOne(find);
+
+    let findCategory = {
+      delete : false
+    }
+
+    const category = await ProductCategory.find(findCategory);
+    const newCategory = createTreeHelper.tree(category);
   
     res.render('admin/pages/products/edit',{
       pageTitle : "chỉnh sửa sản phẩm",
-      product : product
+      product : product,
+      category : newCategory
     })
   } catch (error) {
     req.flash("error","tên sản phẩm không được để trống");
@@ -233,7 +241,6 @@ module.exports.editPatch = async(req,res) =>{
     return res.redirect('back');
   }
 
-  console.log(req.file)
   req.body.price = parseInt(req.body.price);
   req.body.discountPercentage = parseInt(req.body.discountPercentage);
   req.body.stock = parseInt(req.body.stock);
