@@ -1,9 +1,11 @@
 const Products = require('../../model/product.model');
+const ProductCategory = require('../../model/products-category.model');
 
 const filterStatusHelper = require('../../helpers/filterStatus');
 const searchHelper = require('../../helpers/search');
 const paginationHelper = require('../../helpers/pagination');
 const systemConfig  = require('../../config/system');
+const createTreeHelper = require('../../helpers/createTree.js');
 
 
 // [GET] admin/products
@@ -159,8 +161,17 @@ module.exports.deleteItem = async (req,res) =>{
 // [GET] admin/products/create
 module.exports.create = async(req,res) =>{
 
+  let find = {
+    delete : false
+  }
+
+  const categories = await ProductCategory.find(find);
+
+  const categoriesTree = createTreeHelper.tree(categories);
+
   res.render('admin/pages/products/create',{
     pageTitle : "trang tạo sản phẩm",
+    category : categoriesTree
   })
 }
 
@@ -187,7 +198,7 @@ module.exports.createPost = async (req,res) =>{
   if (req.file){
     req.body.thumbnail =`/uploads/${req.file.filename}`;
   }
-  
+
   const product = new Products(req.body);
   await product.save();
 
