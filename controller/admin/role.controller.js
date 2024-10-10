@@ -11,7 +11,7 @@ module.exports.index = async (req,res) => {
   const records = await Role.find(find);
 
   res.render('admin/pages/role/index',{
-    pageTitle : "trang phân nhóm quyền",
+    pageTitle : "trang nhóm quyền",
     records :records
   })
 }
@@ -64,4 +64,35 @@ module.exports.editPatch = async(req,res) =>{
     res.redirect(`back`);
   }
   
+}
+
+// [GET] /admin/roles/permission
+module.exports.permissions = async (req,res) => {
+
+  let find = {
+    delete : false,
+  }
+
+  const records = await Role.find(find);
+
+  res.render('admin/pages/role/permission',{
+    pageTitle : "trang phân quyền",
+    records : records
+  })
+}
+
+// [PATCH] /admin/roles/permission
+module.exports.permissionsPatch = async (req,res) => {
+  try {
+    const permissions = JSON.parse(req.body.permissions);
+    
+  for (const item of permissions) {
+    await Role.updateOne({_id : item.id}, {permissions: item.permissions})
+  }
+  req.flash("success","cập nhật phân quyền thành công")
+  res.redirect(`back`);
+  } catch (error) {
+  req.flash("error","cập nhật phân quyền thành công")
+  res.redirect(`back`);
+  }
 }
