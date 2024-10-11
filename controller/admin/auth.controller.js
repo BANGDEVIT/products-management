@@ -4,6 +4,12 @@ const Account = require('../../model/account.js');
 
 // [GET] /admin/auth/login
 module.exports.login = async (req,res) =>{
+  const token = req.cookies.token;
+  // const user = await Account.findOne({token : token});
+  if (token) {
+    res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
+    return;
+  }
   res.render('admin/pages/auth/login',{
     pageTitle : 'Trang đăng nhập'
   });
