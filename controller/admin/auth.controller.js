@@ -28,19 +28,19 @@ module.exports.loginPost = async (req,res) =>{
   const user = await Account.findOne(find);
 
   if (!user) {
-    res.flash('error',"sai Email");
+    req.flash('error',"sai Email");
     res.redirect(`${systemConfig.prefixAdmin}/auth/login`);
     return;
   }
 
   if (md5(password) != user.password) {
-    res.flash('error',"sai mật khẩu");
+    req.flash('error',"sai mật khẩu");
     res.redirect(`${systemConfig.prefixAdmin}/auth/login`);
     return;
   }
 
   if (user.active == "inactive") {
-    res.flash('error',"Tài Khoản đã bị khóa");
+    req.flash('error',"Tài Khoản đã bị khóa");
     res.redirect(`${systemConfig.prefixAdmin}/auth/login`);
     return;
   }

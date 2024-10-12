@@ -47,15 +47,17 @@ mixin table-tree(records,level=1)
         a(
           class="btn btn-secondary btn-sm"
           href=`${prefixAdmin}/products-category/detail/${item.id}`
-        ) Chi tiết 
-        a(
-          class="btn btn-warning btn-sm ml-1"
-          href=`${prefixAdmin}/products-category/edit/${item.id}`
-        ) sửa
-        button(
-          class="btn btn-danger btn-sm ml-1",
-          button-delete,
-          data-id =item.id
-        ) xóa
+        ) Chi tiết
+        if (role.permissions.includes("products-category_edit")) 
+          a(
+            class="btn btn-warning btn-sm ml-1"
+            href=`${prefixAdmin}/products-category/edit/${item.id}`
+          ) sửa
+        if (role.permissions.includes("products-category_delete")) 
+          button(
+            class="btn btn-danger btn-sm ml-1",
+            button-delete,
+            data-id =item.id
+          ) xóa
     if item.children && item.children.length > 0 
       +table-tree(item.children,level+1) 
