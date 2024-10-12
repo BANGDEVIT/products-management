@@ -11,7 +11,6 @@ module.exports.createPost =(req,res,next)=>{
     req.flash("error","mật khẩu không được để trống");
     return res.redirect('back');
   }
-  console.log("ok");
   next();
 }
 
@@ -25,6 +24,5 @@ module.exports.editPatch =(req,res,next)=>{
     return res.redirect('back');
   }
 
-  console.log("ok");
   next();
 }

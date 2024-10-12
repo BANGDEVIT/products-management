@@ -3,6 +3,6 @@ module.exports.createPost =(req,res,next)=>{
     req.flash("error","tên sản phẩm không được để trống");
     return res.redirect('back');
   }
-  console.log("ok");
+
   next();
 }

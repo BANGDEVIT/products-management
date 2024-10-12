@@ -102,8 +102,6 @@ if (formChangeMutil) {
 
     const typeChange = e.target.elements.type.value;
 
-    console.log(typeChange);
-
     if (typeChange == "delete-all") {
       const isConfirm = confirm("Are you sure you want to delete all");
 
@@ -176,7 +174,7 @@ if (uploadImage) {
     }
 
     const deleteImageInput = document.querySelector("[delete-image-input]");
-    console.log(deleteImageInput);
+
     if (deleteImageInput) {
       deleteImageInput.addEventListener('click',() =>{
         uploadImageInput.value = "";

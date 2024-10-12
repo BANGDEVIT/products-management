@@ -10,6 +10,8 @@ const cookieParser = require('cookie-parser');
 
 const session = require('express-session');
 
+const moment = require('moment');
+
 var path = require('path');
 
 const routeAmin = require('./routes/admin/index.route');
@@ -30,6 +32,7 @@ app.set("view engine", "pug");
 
 // App local variable
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
+app.locals.moment = moment;
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))

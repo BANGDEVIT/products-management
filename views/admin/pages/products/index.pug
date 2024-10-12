@@ -54,7 +54,8 @@ block main
                 th tiêu đề 
                 th giá 
                 th vị trí
-                th trạng thái 
+                th trạng thái
+                th Người tạo 
                 th hành động 
 
             tbody
@@ -101,7 +102,10 @@ block main
                       button-change-status
                       class="badge badge-danger"
                       ) Dừng hoạt động 
-                    
+                  td 
+                    p #{item.accountFullName}
+                    if (item.createdBy.createdAt)
+                      p #{moment(item.createdBy.createdAt).format("DD/MM/YYYY h:mm:ss")} 
                   td
                     a(
                       class="btn btn-secondary btn-sm"
