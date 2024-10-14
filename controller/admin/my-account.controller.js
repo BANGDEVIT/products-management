@@ -51,7 +51,7 @@ module.exports.editPatch = async(req,res) =>{
 
     try {
       await Account.updateOne({_id : id},req.body);
-      req.flash("success",`cập nhật thành công sản phẩm `);
+      req.flash("success",`cập nhật thành công sản phẩm `); 
       res.redirect(`back`);
     } catch (error) {
       req.flash("error","cập nhật thất bại");
