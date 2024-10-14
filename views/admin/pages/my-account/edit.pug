@@ -1,0 +1,102 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main 
+
+  if (role && role.permissions && role.permissions.includes("roles_edit"))
+
+  +alert-error("5000")  
+  +alert-success("5000")
+
+  h1(class="mb-4") Chỉnh sửa Trang cái nhân
+
+  form(
+    action=`${prefixAdmin}/my-account/edit?_method=PATCH`
+    method="POST"
+    entype="multipart/form-data"
+  )
+    div(class="form-group")
+      label(for="fullName") Họ tên
+      input(
+        type="text"
+        id="fullName"
+        name="fullName"
+        class="form-control"
+        value=user.fullName
+      )
+    div(class="form-group")
+      label(for="email") Email
+      input(
+        type="text"
+        id="email"
+        name="email"
+        class="form-control"
+        value = user.email
+      )
+    div(class="form-group")
+      label(for="phone") Số điện thoại
+      input(
+        type="text"
+        id="phone"
+        name="phone"
+        class="form-control"
+        value = user.phone
+      )
+    div(
+      class="form-group"
+      Update-image
+    )
+      label(for="avatar") Avatar
+      input(
+        type="file"
+        id="avatar"
+        name="avatar"
+        class="form-control-file"
+        accept="image/*"
+        upload-image-input
+      )
+      img(
+        src=user.avatar,
+        class="image-preview",
+        upload-image-preview,
+      )
+
+    div(class="form-group")
+      label(for="role_id") Phân quyền
+      select(
+        class="form-control"
+        id="role_id"
+        name="role_id"
+      )
+        option(disabled="true") --Chọn--
+        each role in roles
+          option(
+            value=role.id
+            checked = role.title === role.title ? true : false
+          ) #{role.title}
+    div(class="form-group form-check form-check-inline")
+      input(
+        type="radio"
+        class="form-check-input"
+        id="statusActive"
+        name="status"
+        value="active"
+        checked=(user.status === "active" ? true : false)
+      )
+      label(for="statusActive" class="form-check-label") Hoạt động
+    div(class="form-group form-check form-check-inline")
+      input(
+        type="radio"
+        class="form-check-input"
+        id="statusInActive"
+        name="status"
+        value="inactive"
+        checked=(user.status === "inactive" ? true : false)
+      )
+      label(for="statusActive" class="form-check-label") Dừng hoạt động
+    div(class="form-group")
+      button(
+        type="submit"
+        class="btn btn-primary"
+      ) Cập nhật
+    

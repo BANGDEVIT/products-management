@@ -291,8 +291,9 @@ module.exports.editPatch = async(req,res) =>{
   if (req.file){
     req.body.thumbnail =`/uploads/${req.file.filename}`;
   }
+
   
-  try {
+  try { 
     const updatedBy = {
       account_id : res.locals.user.id,
       updatedAt : new Date()
