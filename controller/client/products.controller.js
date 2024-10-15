@@ -1,33 +1,46 @@
-// [GET] /products
 const Product = require('../../model/product.model')
 const ProductCategory = require('../../model/products-category.model');
 
 const productsHelper = require('../../helpers/products');
 const productsCategoryHelper = require('../../helpers/products-category');
-
+// [GET] /products
 module.exports.index = async (req,res) =>{
   const products = await Product.find({
     status : "active",
     delete : false
   }).sort({position : "desc"});
 
-
-  const newProducts = productsHelper.priceNewProducts(products);
+  products.forEach(item =>{
+    item.priceNew = (item.price*(1-item.discountPercentage/100)).toFixed(2);
+  })
 
   res.render('client/page/products/index',{
     pageTitle : 'Danh sách sản phẩm',
-    products : newProducts
+    products : products
   }); 
 };
 
-// [GET] /products/:slug
+// [GET] /products/edit/:slugProduct
 module.exports.detail = async (req,res) =>{
 
   const product = await Product.findOne({
-    slug : req.params.slug,
+    slug : req.params.slugProduct,
     delete : false,
     status : "active"
   });
+
+  if (product.products_category_id){
+    let find = {
+      _id : product.products_category_id,
+      delete : false,
+      status : "active"
+    }
+    const category = await ProductCategory.findOne(find)
+
+    product.category = category;
+  }
+
+  product.priceNew = (product.price*(1-product.discountPercentage/100)).toFixed(2);
 
   res.render('client/page/products/detail',{
     pageTitle : 'Chi tiết sản phẩm',
@@ -44,6 +57,7 @@ module.exports.category = async (req,res) =>{
   }
 
   const category = await ProductCategory.findOne(find);
+
 
   // const getSubCategory =async (parentId) =>{
   //   const subs = await ProductCategory.find({
