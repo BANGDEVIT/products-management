@@ -85,10 +85,27 @@ module.exports.order = async(req,res) =>{
 module.exports.success = async(req,res) =>{
   const orderId = req.params.orderId;
 
-  const order = await Order.findOne({_id : orderId}).populate("cart_id");
+  const order = await Order.findOne({_id : orderId})
+
+  for (const product of order.products){
+    const productInfo = await Product.findOne({_id : product.product_id}).select("title thumbnail");
+    product.productInfo = productInfo;
+
+    const price = (product.price)
+    const discountPercentage = (product.discountPercentage);
+
+    priceNew = (price*(1-discountPercentage/100)).toFixed(2);
+
+    product.priceNew = parseFloat(priceNew);
+
+    product.totalPrice = product.priceNew * product.quantity;
+  }
+
+  order.totalPrice= order.products.reduce((sum,item) => sum+ item.totalPrice,0).toFixed(2);
+  console.log(order);
 
   res.render('client/page/checkout/success.pug',{
     pageTitle : 'Đặt hàng thành công',
-    orderDetail : order,
+    order : order,
   })
 }

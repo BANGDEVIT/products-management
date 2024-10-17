@@ -12,7 +12,6 @@ module.exports.index = async(req,res) =>{
   }
   const productsFeatured = await Product.find(find).limit(6)
 
-  console.log(productsFeatured);
 
   const newProducts = productsHelper.priceNewProducts(productsFeatured);
 //End Lấy sản phẩm nổi bật
