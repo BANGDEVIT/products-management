@@ -102,7 +102,6 @@ module.exports.success = async(req,res) =>{
   }
 
   order.totalPrice= order.products.reduce((sum,item) => sum+ item.totalPrice,0).toFixed(2);
-  console.log(order);
 
   res.render('client/page/checkout/success.pug',{
     pageTitle : 'Đặt hàng thành công',
