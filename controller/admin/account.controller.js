@@ -122,7 +122,7 @@ module.exports.editPatch = async(req,res) =>{
     return res.redirect(`${systemConfig.prefixAdmin}/accounts/create`);
   }else{
     if (req.file){
-      req.body.thumbnail =`/uploads/${req.file.filename}`;
+      req.body.avatar =`/uploads/${req.file.filename}`;
     }
 
     if (req.body.password){
