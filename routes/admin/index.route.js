@@ -16,6 +16,8 @@ const authRoutes = require('./auth.js')
 
 const myAccountRouters = require('./my-account.route.js')
 
+const settingGeneralRouters = require('./setting.route.js')
+
 
 module.exports = (app) =>{
 
@@ -34,4 +36,6 @@ module.exports = (app) =>{
   app.use( PATH_ADMIN + "/auth",authRoutes);
 
   app.use(PATH_ADMIN + "/my-account",authMiddleware.requireAuth, myAccountRouters);
+
+  app.use(PATH_ADMIN + "/settings",authMiddleware.requireAuth, settingGeneralRouters);
 }

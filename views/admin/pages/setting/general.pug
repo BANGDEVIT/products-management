@@ -1,0 +1,86 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+  
+  //- if (role && role.permissions && role.permissions.includes("roles_permissions"))
+  +alert-success("5000")
+  +alert-error("5000")
+
+  h1(class="mb-4") Cài đặt chung
+  
+  form(
+    action=`${prefixAdmin}/settings/general?_method=PATCH`
+    method = "POST",
+    enctype ="multipart/form-data"
+  )
+
+    div(class="form-group")
+      label(for="websiteName") Tên website 
+      input(
+        type = "text",
+        id = "websiteName",
+        name = "websiteName",
+        class = "form-control",
+        value = (settingGeneral.websiteName ?settingGeneral.websiteName : ""),
+      )
+    div(
+      class="form-group"
+      upload-image
+    )
+      label(for="logo") logo
+      input(
+        type = "file",
+        id = "logo",
+        name = "logo",
+        class = "form-control-file",
+        accept="image/*"
+        upload-image-input
+      )
+      img(
+        src=(settingGeneral.logo ?settingGeneral.logo : "" ),
+        upload-image-preview,
+        class="image-preview"
+      )
+    div(class="form-group")
+      label(for="phone") Sô điện thoại
+      input(
+        type = "text",
+        id = "phone",
+        name = "phone",
+        class = "form-control",
+        value = settingGeneral.phone
+      )
+    div(class="form-group")
+      label(for="email") Email
+      input(
+        type = "email",
+        id = "email",
+        name = "email",
+        class = "form-control",
+        value = (settingGeneral.email ? settingGeneral.email : "")
+      )
+    div(class="form-group")
+      label(for="address") Địa chỉ 
+      input(
+        type = "type",
+        id = "address",
+        name = "address",
+        class = "form-control",
+        value = (settingGeneral.address ? settingGeneral.address : "")
+      )
+    div(class="form-group")
+      label(for="copyright") copyright 
+      input(
+        type = "type",
+        id = "copyright",
+        name = "copyright",
+        class = "form-control",
+        value = (settingGeneral.copyright ? settingGeneral.copyright : "")
+      )
+    div(class="form-group")
+      button(
+        type = "submit",
+        class = "btn btn-primary",
+      ) Cập nhật
+

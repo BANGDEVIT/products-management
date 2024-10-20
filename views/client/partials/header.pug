@@ -7,7 +7,7 @@ header
       .col-3 
         .inner-logo
           a(href="/")
-            img(src="/images/logo.svg" alt="thietkelogo")
+            img(src= settingGeneral.logo alt=settingGeneral.websiteName)
       .col-4 
         form(
           action="/search"
@@ -39,6 +39,8 @@ header
             if (user)
               li
                 a(href="/user/logout") Đăng xuất
+              li
+                a(href="/user/info") #{user.fullName}
             else
               li
                 a(href="/user/register") Đăng kí

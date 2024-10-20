@@ -18,4 +18,7 @@
           a(href=`${prefixAdmin}/roles/permission`) Phân quyền 
       if (role && role.permissions && role.permissions.includes("accounts_view"))
         li 
-          a(href=`${prefixAdmin}/accounts`) Danh sách tài khoản 
+          a(href=`${prefixAdmin}/accounts`) Danh sách tài khoản
+      //- if (role && role.permissions && role.permissions.includes("settings-view"))
+      li 
+        a(href=`${prefixAdmin}/settings/general`) Cài đặt chung 
