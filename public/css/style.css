@@ -248,3 +248,60 @@
 }
 
 /* End show alert */
+
+/* Chat */
+.chat .inner-body{
+  padding: 10px;
+  max-height: 450px;
+  overflow-y: auto;
+}
+
+.chat .inner-body .inner-name{
+  font-weight: 600;
+}
+
+.chat .inner-body .inner-content{
+  background: #F1F1F1;
+  margin-bottom: 10px;
+  max-width: 220px;
+  padding: 5px 10px;
+  border-radius: 15px;
+  line-height: 1.4;
+}
+
+.chat .inner-outgoing .inner-content{
+  margin-left: auto;
+  background: #FE5DA3;
+  color: #fff;
+}
+
+.chat .inner-footer{
+  border-top: 1px solid #ddd;
+  padding: 10px;
+}
+
+.chat .inner-form{
+  display: flex;
+  align-items: center;
+}
+
+.chat .inner-form input{
+  flex : 1;
+  height: 32px;
+  border: 1px soild #ddd;
+  border-radius: 15px;
+  padding: 0 10px;
+  outline: none;
+}
+
+.chat .inner-form button{
+  border-radius: 15px;
+  border: 1px soild #FE5DA3;
+  background: #FE5DA3;
+  color: #fff;
+  padding: 0 10px;
+  cursor: pointer;
+  height: 32px;
+}
+
+/* End chat */

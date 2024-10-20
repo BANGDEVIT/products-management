@@ -1,5 +1,8 @@
 const express = require('express');
 
+const http = require('http');
+const { Server } = require("socket.io");
+
 const methodOverride =require('method-override');
 
 const bodyParser = require('body-parser');
@@ -29,6 +32,15 @@ database.connect();
 
 app.set("views",`${__dirname}/views`);
 app.set("view engine", "pug");
+
+//Socket.io
+
+const server = http.createServer(app);
+const io = new Server(server);
+
+global._io = io;
+//End Socket.io
+
 
 // App local variable
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
@@ -61,6 +73,6 @@ app.get("*",(req,res) =>{
 });
 // Route
 
-app.listen(port,() =>{
+server.listen(port,() =>{
   console.log(`Server dang chay tai port ${port}`);
 });

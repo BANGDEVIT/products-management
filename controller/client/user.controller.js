@@ -15,9 +15,6 @@ module.exports.register =async(req,res) =>{
 
 //[POST] user/register
 module.exports.registerPost =async(req,res) =>{
-
-  
-
   const emailExist = await User.findOne({email : req.body.email});
 
   if (emailExist){
