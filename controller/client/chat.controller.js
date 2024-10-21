@@ -17,12 +17,21 @@ module.exports.index = async(req,res) =>{
       await chat.save()
 
       //Trả về client
-      _io.emit("SEVER_RETURN_MESSAGE", {
+      _io.emit("SERVER_RETURN_MESSAGE", {
         content : content,
         userId : userId,
         fullName : fullName
       })
     })
+    //typing
+    socket.on("CLIENT_SEND_TYPING",async (type) => {
+      socket.broadcast.emit("SERVER_RETURN_TYPING",{
+        fullName : fullName,
+        userId : userId,
+        type : type
+      })
+    })
+    //end typing
   }); 
   //End socket.io
 
