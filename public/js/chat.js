@@ -2,7 +2,6 @@ import * as Popper from 'https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm
 
 //CLIENT_SEND_MESSAGE
 const formSendData = document.querySelector(".chat .inner-form")
-
 if (formSendData) {
   formSendData.addEventListener("submit",(e)=>{
     e.preventDefault();
@@ -17,8 +16,7 @@ if (formSendData) {
 }
 //END CLIENT_SEND_MESSAGE
 
-// SEVER_RETURN_MESSAGE
-
+//SEVER_RETURN_MESSAGE
 
 socket.on("SERVER_RETURN_MESSAGE", (data) => {
   const body = document.querySelector(".chat .inner-body")
@@ -63,9 +61,9 @@ if (buttonIcon){
   }
 }
 // End Show popup
-var timeOut;
 
 // Show Typing
+var timeOut;
 const showTyping = () =>{
   var timeOut;
   socket.emit("CLIENT_SEND_TYPING","show");
@@ -79,8 +77,6 @@ const showTyping = () =>{
 // End Show typing
 
 // Insert Icon in input
-
-
   const emojiPicker = document.querySelector("emoji-picker");
   if (emojiPicker){
     const chatInput = document.querySelector(".chat .inner-form input[name='content']");
@@ -140,3 +136,4 @@ if (elementListTyping){
 } 
 
 // END SERVER_RETURN_TYPING
+
