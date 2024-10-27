@@ -117,6 +117,11 @@ module.exports.friend =async(req,res) =>{
     // friendStatus : 'not-friend'  // Tìm những người đang không phải bạn bè
   }).select("fullName avatar id statusOnline")
 
+  for (const user of users){
+    const infoFriend = friendList.find(friend => friend.user_id = user.id)
+    user.infoFriend = infoFriend;
+  }
+
   res.render('client/page/users/friend',{
     pageTitle : 'Danh sách bạn bè',
     users : users,

@@ -24,10 +24,10 @@ block main
                 alt=user.fullName
               )
             div(class="inner-info")
-              div(class="inner-name") #{user.fullName}
+              div(class="inner-name") #{user.fullName} 
               div(class="inner-buttons")
                 a(
-                  href="#"
+                  href=`/chat/${user.infoFriend.room_chat_id}`
                   class="btn btn-primary btn-sm mr-1" 
                 ) Nhắn tin
             div(

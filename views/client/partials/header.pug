@@ -35,7 +35,9 @@ header
               a(href="/products") Sản Phẩm
                 +sub-menu(layoutProductsCategory,pathProduct)
             li 
-              a(href="/chat") Chat
+              a(href="/users/friend") Bạn bè
+            li 
+            a(href="/rooms-chat") Phòng chat 
             li
               a(href="/cart") Giỏ hàng (#{miniCart ? miniCart.totalQuantity : 0})
             if (user)

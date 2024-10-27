@@ -1,0 +1,44 @@
+extends ../../layout/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+
+block main 
+  +alert-success(5000)
+  +alert-error(5000)
+
+  .container.my-3
+
+    include ../../partials/list-btn-users.pug
+
+    .row 
+      .col-12 
+        +box-head("Danh sách phòng")
+
+    .row.mb-3 
+      .col-12 
+        a(
+           href="/rooms-chat/create"
+           class="btn btn-success btn-sm mr-1"
+        ) Tạo phòng chat
+
+
+    .row
+      each roomChat in listRoomChat
+        .col-6 
+          div(class="box-room")
+            div(class="inner-avatar")
+              img(
+                src="https://cdn.kona-blue.com/upload/kona-blue_com/post/images/2024/09/18/457/avatar-mac-dinh-1.jpg"
+                alt=roomChat.title
+              )
+            div(class="inner-info")
+              div(class="inner-name") #{roomChat.title}
+              div(class="inner-buttons")
+                a(
+                  href=`chat/${roomChat.id}`
+                  class="btn btn-primary btn-sm"
+                ) Nhắn tin
+
+    
+block script 
+  script(src="/js/user.js")   

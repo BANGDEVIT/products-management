@@ -15,10 +15,3 @@ if (showAlert) {
   })
 }
 //End Show Alert
-
-//Detect browser or tap closing
-window.addEventListener('beforeunload',(e)=>{
-  e.preventDefault();
-  socket.emit("CLIENT_CLOSE_WEB","test");
-})
-//End Detect browser or tap closing
