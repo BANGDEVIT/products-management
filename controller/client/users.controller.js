@@ -93,3 +93,32 @@ module.exports.accept = async(req,res) =>{
     users : users
   });
 }
+
+//[GET] users/not-friend
+module.exports.friend =async(req,res) =>{
+
+  //socket
+  USersSocket(res);
+  //End socket
+
+  const userId = res.locals.user.id;
+
+  const myUser = await User.findOne({
+    _id : userId
+  })
+
+  const friendList = myUser.friendList;
+  const friendListId = friendList.map(friendList => friendList.user_id)
+
+  const users = await User.find({
+    _id : {$in : friendListId},  // Tìm những người chưa gửi lời mời kết bạn
+    status : 'active',
+    delete : false,
+    // friendStatus : 'not-friend'  // Tìm những người đang không phải bạn bè
+  }).select("fullName avatar id statusOnline")
+
+  res.render('client/page/users/friend',{
+    pageTitle : 'Danh sách bạn bè',
+    users : users,
+  });
+}

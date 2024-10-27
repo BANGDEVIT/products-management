@@ -68,6 +68,15 @@ module.exports.loginPost =async(req,res) =>{
       })
     }
     res.cookie("tokenUser",user.tokenUser);
+    await User.updateOne({
+      tokenUser: user.tokenUser
+    },{
+      statusOnline : "online"
+    })
+    _io.once("connection",(socket) =>{
+      socket.broadcast.emit("SERVER_RETURN_USER_ONLINE", user.id )
+    })
+
     res.redirect('/');
   }else {
     req.flash("error","Email hoặc mật khẩu không đúng");
@@ -77,6 +86,15 @@ module.exports.loginPost =async(req,res) =>{
 
 //[GET] user/logout
 module.exports.logout =async(req,res) =>{
+  const user = await User.findOne({tokenUser: req.cookies.tokenUser});
+  await User.updateOne({
+    tokenUser: req.cookies.tokenUser
+  },{
+    statusOnline : "offline"
+  })
+  _io.once("connection",(socket) =>{
+    socket.broadcast.emit("SERVER_RETURN_USER_OFFLINE", user.id )
+  })
   res.clearCookie("tokenUser");
   res.clearCookie("cardID");
   res.redirect('/user/login');

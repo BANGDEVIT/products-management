@@ -155,8 +155,7 @@ if (badgeUsersAccept){
         const boxUserRemove = dataUsersNotFriends.querySelector(`[user-id='${data.infoUserA._id}']`)
         if (boxUserRemove){
           dataUsersNotFriends.removeChild(boxUserRemove);
-}
-      }
+      }}
     }
     //End Trang danh sách người dùng
 
@@ -176,3 +175,33 @@ socket.on("SERVER_RETURN_USER_ID_CANCEL_FRIEND",(data)=>{
   }
 })
 //END SERVER_RETURN_USER_ID_CANCEL_FRIEND
+
+//SERVER_RETURN_USER_ONLINE
+socket.on("SERVER_RETURN_USER_ONLINE",(userId)=>{
+  const dataUsersFriend = document.querySelector(`[data-users-friend]`);
+  if (dataUsersFriend){
+    const boxUser = dataUsersFriend.querySelector(`[user-id="${userId}"]`)
+    if (boxUser){
+      const status = boxUser.querySelector("[status]");
+      status.setAttribute("status","online")
+    }
+
+    // if (myUserId == userId )
+  }
+})
+//END SERVER_RETURN_USER_ONLINE
+
+//SERVER_RETURN_USER_OFFLINE
+socket.on("SERVER_RETURN_USER_OFFLINE",(userId)=>{
+  const dataUsersFriend = document.querySelector(`[data-users-friend]`);
+  if (dataUsersFriend){
+    const boxUser = dataUsersFriend.querySelector(`[user-id="${userId}"]`)
+    if (boxUser){
+      const status = boxUser.querySelector("[status]");
+      status.setAttribute("status","offline")
+    }
+
+    // if (myUserId == userId )
+  }
+})
+//END SERVER_RETURN_USER_OFFLINE
