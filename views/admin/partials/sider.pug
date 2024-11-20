@@ -10,6 +10,9 @@
       if (role && role.permissions && role.permissions.includes("products-category_view"))
         li 
           a(href=`${prefixAdmin}/products-category`) Danh mục sản phẩm
+      //- if (role && role.permissions && role.permissions.includes("products-category_view"))
+      li 
+        a(href=`${prefixAdmin}/checkout`) Danh sách đơn hàng
       if (role && role.permissions && role.permissions.includes("roles_view"))
         li 
           a(href=`${prefixAdmin}/roles`) Nhóm quyền

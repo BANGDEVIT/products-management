@@ -50,19 +50,26 @@ module.exports.order = async(req,res) =>{
       price : 0,
       discountPercentage : 10,
       quantity : item.quantity,
+      title : "",
+      thumbnail : "",
+      newPrice :0
     }
 
-    const productInfo = await Product.findOne({_id : item.product_id}).select("price discountPercentage");
+    const productInfo = await Product.findOne({_id : item.product_id}).select("price discountPercentage title thumbnail");
     objectProduct.price = productInfo.price;
     objectProduct.discountPercentage = productInfo.discountPercentage;
+    objectProduct.newPrice = (productInfo.price*(1-objectProduct.discountPercentage/100)).toFixed(2);
+    objectProduct.title = productInfo.title;
+    objectProduct.thumbnail = productInfo.thumbnail;
 
     products.push(objectProduct);
+
   }
 
   const orderInfo = {
     cart_id : cartID,
     userInfo : userInfo,
-    products : products
+    products : products,
   }
 
   const order = new Order(orderInfo);
