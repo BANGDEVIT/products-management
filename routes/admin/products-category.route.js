@@ -18,4 +18,12 @@ route.get('/edit/:id',controller.edit);
 
 route.patch('/edit/:id',upload.single('thumbnail'),validate.createPost,controller.editPatch);
 
+route.get('/detail/:id',controller.detail);
+
+route.delete('/delete/:id',controller.deleteItem);
+
+route.patch('/change-status/:status/:id',controller.changeStatus);
+
+route.patch('/change-mutil',controller.changeMutil);  
+
 module.exports = route;

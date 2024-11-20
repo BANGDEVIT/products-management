@@ -140,3 +140,116 @@ module.exports.editPatch = async(req,res) =>{
   }
   
 }
+
+// [GET] admin/products-category/detail/:id
+module.exports.detail = async(req,res) =>{
+
+  try {
+    const find = {
+      delete : false,
+      _id : req.params.id,
+    }
+
+    var parent="";
+
+    const record = await ProductCategory.findOne(find);
+
+    if (record.parent_id !==""){
+      parent = await ProductCategory.findOne({
+        _id : record.parent_id,
+        delete : false
+      })
+    }
+
+    res.render('admin/pages/products-category/detail',{
+      pageTitle : "Chi tiết danh mục sản phẩm",
+      records : record,
+      parent : parent,
+    })
+  } catch (error) {
+    res.redirect(`${systemConfig.prefixAdmin}/products-category`);
+  }
+
+}
+
+// [DELETE] admin/products-category/delete/:id xóa mềm
+module.exports.deleteItem = async (req,res) =>{
+  const id = req.params.id;
+
+  await ProductCategory.updateOne({_id : id},{
+    delete : true,
+    deletedBy :{
+      account_id : res.locals.user.id,
+      deletedAt : new Date()
+    }
+  });
+
+  res.redirect(`back`);
+}
+
+// [PATCH] admin/products/change-status/:status/:id
+module.exports.changeStatus = async (req,res) =>{
+  const status = req.params.status;
+  const id = req.params.id;
+
+  const page = req.query.page;
+
+  const updatedBy = {
+    account_id : res.locals.user.id,
+    updatedAt : new Date()
+  }
+
+  await ProductCategory.updateOne({_id : id},{
+    status : status,
+    $push : {updatedBy : updatedBy}
+  })
+
+  req.flash("success","cập nhật thành công");
+
+  res.redirect(`back`);
+}
+
+// [PATCH] admin/products/change-mutil
+module.exports.changeMutil = async (req,res) =>{
+  const type = req.body.type;
+  const ids = req.body.ids.split(', ');
+
+  const updatedBy = {
+    account_id : res.locals.user.id,
+    updatedAt : new Date()
+  }
+
+  switch (type) {
+    case 'active':
+      await ProductCategory.updateMany({ _id: { $in: ids } },{ status : "active",$push : {updatedBy : updatedBy} });
+      req.flash("success",`cập nhật thành công ${ids.length} sản phẩm `);
+      break;
+    case 'inactive':
+      await ProductCategory.updateMany({ _id: { $in: ids }},{ status : "inactive",$push : {updatedBy : updatedBy} });
+      req.flash("success",`cập nhật thành công ${ids.length} sản phẩm `);
+      break;
+    case 'delete-all':
+      await ProductCategory.updateMany({ _id: { $in: ids } },{delete : true ,deletedBy :{
+        account_id : res.locals.user.id,
+        deletedAt : new Date(),
+        $push : {updatedBy : updatedBy}
+      }},);
+      req.flash("success",`xóa thành công ${ids.length} sản phẩm `);
+      break;
+    case 'change-position':
+      for (const item of ids) {
+        let [id,position] = item.split('-');
+
+        position= parseInt(position);
+
+        await ProductCategory.updateOne({_id : id},{
+          position : position,
+          $push : {updatedBy : updatedBy}
+        });
+      }
+      break;
+}
+
+  res.redirect(`back`);
+
+}

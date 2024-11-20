@@ -1,0 +1,29 @@
+extends ../../layouts/default.pug
+
+block main 
+  if (role && role.permissions && role.permissions.includes("products-category_edit"))
+    h1(class="mb-4") Chỉnh sửa danh mục sản phẩm 
+
+    if(records.title)
+      div(class="mb-4") Tên danh mục: <b>#{records.title}</b>
+
+    if(parent.title != "")
+      div(class="mb-4") Danh mục cha: <b>#{parent.title}</b>
+    else 
+      span(class="mb-4") Danh mục cha: không có 
+    if(records.status)
+      div(class="mb-4")
+        span Trạng thái: 
+          if(records.status === "active")
+            span(class="badge badge-success") Hoạt động
+          else
+            span(class="badge badge-danger") Dừng hoạt động
+
+    a(
+      class="btn btn-warning btn-lg ml-1"
+      href=`${prefixAdmin}/products-category/edit/${records.id}`
+    ) sửa 
+
+    script(src="/admin/js/product.js")
+  else 
+    h1(class="text-center") Bạn không có quyền truy cập vào trang này.
