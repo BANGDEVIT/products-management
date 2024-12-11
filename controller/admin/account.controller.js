@@ -141,3 +141,15 @@ module.exports.editPatch = async(req,res) =>{
     }
   }
 }
+
+module.exports.delete = async(req,res) =>{
+  const id = req.params.id;
+  try {
+    await Account.updateOne({_id : id},{delete : true});
+    req.flash("success",`xóa thành tai Khoản `);
+    res.redirect(`back`);
+  } catch (error) {
+    req.flash("error","xóa thất bại tai Khoản");
+    res.redirect(`back`);
+  }  
+}

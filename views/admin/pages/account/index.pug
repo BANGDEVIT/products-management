@@ -26,6 +26,7 @@ block main
               th STT
               th Avarta
               th Họ tên
+              th Quyền
               th Email
               th Trạng thái
               th Hành động
@@ -55,10 +56,10 @@ block main
                       class="badge badge-danger"
                     ) Dừng hoạt động
                 td 
-                  a(
-                    href=`${prefixAdmin}/accounts/detail/${item.id}`
-                    class="btn btn-secondary btn-sm"
-                  ) Chi tiết
+                  //- a(
+                  //-   href=`${prefixAdmin}/accounts/detail/${item.id}`
+                  //-   class="btn btn-secondary btn-sm"
+                  //- ) Chi tiết
                   if (role && role.permissions && role.permissions.includes("roles_edit")) 
                     a(
                       href=`${prefixAdmin}/accounts/edit/${item.id}`
@@ -67,5 +68,14 @@ block main
                   if (role && role.permissions && role.permissions.includes("roles_delete"))
                     a(
                       class="btn btn-danger btn-sm ml-1"
+                      button-delete,
+                      data-id =item.id
                     ) Xóa
+    form(
+    action='',
+    method="POST",
+    id ="form-delete-item",
+    data-path =`${prefixAdmin}/accounts/delete`
+    ) 
+    script(src="/admin/js/product.js")
               

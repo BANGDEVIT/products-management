@@ -13,8 +13,12 @@ route.get('/edit/:id',controller.edit)
 
 route.patch('/edit/:id',controller.editPatch)
 
+route.delete('/delete/:id',controller.delete)
+
 route.get('/permission',controller.permissions)
 
 route.patch('/permission',controller.permissionsPatch)
+
+route.get('/detail/:id',controller.detail)
 
 module.exports = route; 

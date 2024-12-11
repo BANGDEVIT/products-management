@@ -8,9 +8,6 @@ module.exports.checkout = async (req,res) =>{
   const orders = await Order.find({
     deleted : false,
   })
-  for (const order of orders){
-    console.log(order.products)
-  }
   
   res.render('admin/pages/checkout/index',{
     pageTitle : "Danh sách đơn hàng",

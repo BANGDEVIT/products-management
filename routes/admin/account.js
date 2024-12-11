@@ -16,6 +16,9 @@ route.post('/create',upload.single('avatar'),validate.createPost,controller.crea
 
 route.get('/edit/:id',controller.edit)
 
-route.patch('/edit/:id',upload.single('thumbnail'),validate.editPatch,controller.editPatch);
+route.patch('/edit/:id',upload.single('avatar'),validate.editPatch,controller.editPatch);
+
+route.get('/delete/:id',controller.delete)
+
 
 module.exports = route;
